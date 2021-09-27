@@ -15,6 +15,7 @@ function init() {
             = window.AudioContext || window.webkitAudioContext;
         //AudioContextを生成する
         context = new AudioContext();
+        console.log('init!');
     } catch (e) {
         //try内の処理がエラーの場合、それをユーザーに伝える。
         alert('このブラウザではWeb Audio APIはサポートされていません。');
@@ -40,18 +41,17 @@ function loadSound(url) {
     //レスポンスのタイプは'arraybuffer'を指定。
     request.responseType = 'arraybuffer';
 
-    //APIにリクエストを送信する
-    request.send();
-
     //返ってきたレスポンスに行う処理をアロー関数で指定する
     request.onload = () => {
         // ArrayBuffer に書き込まれた音声ファイルデータを非同期にデコードする
         context.decodeAudioData(request.response, (buffer) => {
-            //dogBarkingBufferにbufferの値を代入する
             resolve(buffer);
-        }, onError);
+        })
     };
-    console.log(request.response);
+
+    //APIにリクエストを送信する
+    request.send();
+
 };
 
 
