@@ -40,57 +40,55 @@
 // })();
 
 
+// function EEE() {
+//     // AudioContextの生成
+//     const context = new AudioContext();
 
+//     // サウンドの読み込み
+//     function loadSound(url) {
+//         return new Promise((resolve) => {
+//             // リクエストの生成
+//             const request = new XMLHttpRequest();
 
-function FFF() {
-    // AudioContextの生成
-    const context = new AudioContext();
+//             request.open('GET', url, true);
 
-    // サウンドの読み込み
-    function loadSound(url) {
-        return new Promise((resolve) => {
-            // リクエストの生成
-            const request = new XMLHttpRequest();
+//             request.responseType = 'arraybuffer';
 
-            request.open('GET', url, true);
+//             // 読み込み完了時に呼ばれる
+//             request.onload = () => {
+//                 context.decodeAudioData(request.response, (buffer) => {
+//                     resolve(buffer);
+//                 });
+//             };
 
-            request.responseType = 'arraybuffer';
+//             request.send();
 
-            // 読み込み完了時に呼ばれる
-            request.onload = () => {
-                context.decodeAudioData(request.response, (buffer) => {
-                    resolve(buffer);
-                });
-            };
+//         });
+//     };
 
-            request.send();
+//     // サウンドの再生
+//     function playSound(buffer) {
+//         // Source
+//         const source = context.createBufferSource();
+//         source.buffer = buffer;
 
-        });
-    };
+//         // Destination
+//         source.connect(context.destination);
 
-    // サウンドの再生
-    function playSound(buffer) {
-        // Source
-        const source = context.createBufferSource();
-        source.buffer = buffer;
+//         // Sourceの再生
+//         source.start(0);
+//     };
 
-        // Destination
-        source.connect(context.destination);
+//     // メイン
+//     (async () => {
+//         // サウンドの読み込み
+//         const buffer = await loadSound('./Audio/clave.mp3');
+//         const buffer2 = await loadSound('./Audio/conga808.mp3');
 
-        // Sourceの再生
-        source.start(0);
-    };
+//         // サウンドの再生
+//         playSound(buffer);
+//         // サウンドの再生
+//         playSound(buffer2);
+//     })().catch((err) => console.error(err));
 
-    // メイン
-    (async () => {
-        // サウンドの読み込み
-        const buffer = await loadSound('./Audio/clave.mp3');
-        const buffer2 = await loadSound('./Audio/conga808.mp3');
-
-        // サウンドの再生
-        playSound(buffer);
-        // サウンドの再生
-        playSound(buffer2);
-    })().catch((err) => console.error(err));
-
-};
+// };
