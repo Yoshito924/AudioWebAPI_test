@@ -27,8 +27,14 @@ function playAudio(audioFileURL) {
             source.start(0);
         })
         .catch(error => console.error(error));
-}
 
+    // 再生が停止された場合に再開する
+    document.addEventListener('touchstart', () => {
+        if (audioContext.state === 'suspended') {
+            audioContext.resume();
+        }
+    });
+}
 // -------------------------------------------------
 
 let bpm = 150;
