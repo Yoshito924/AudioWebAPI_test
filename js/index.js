@@ -4,6 +4,8 @@ console.log("aa")
 
 // AudioContextの作成
 const audioContext = new AudioContext();
+const audioSource = audioContext.createBufferSource();
+audioSource.loop = true;
 
 //任意のwavファイルを再生させる関数
 function playAudio(audioFileURL) {
