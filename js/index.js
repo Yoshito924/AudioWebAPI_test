@@ -4,7 +4,7 @@ console.log("aa")
 
 // AudioContextの作成
 const audioContext = new AudioContext();
-const audioSource = audioContext.createBufferSource();
+let audioSource = audioContext.createBufferSource();
 audioSource.loop = true;
 
 //任意のwavファイルを再生させる関数
@@ -27,6 +27,13 @@ function playAudio(audioFileURL) {
             // 再生する
             source.connect(audioContext.destination);
             source.start(0);
+        })
+        .then(decodedData => {
+            audioSource = audioContext.createBufferSource();
+            audioSource.buffer = decodedData;
+            audioSource.loop = true;
+            audioSource.connect(audioContext.destination);
+            audioSource.start(0);
         })
         .catch(error => console.error(error));
 
