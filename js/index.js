@@ -43,6 +43,8 @@ let audioFileURL = 'Audio/Snare.wav'
 function playBeat(audioFileURL) {
     // ここでビートを実行（例：音を鳴らす、画面を点滅させるなど）
     console.log("ビート:", performance.now());
+    let consoleOutput = performance.now(); // console.logの出力内容
+    document.getElementById("console-output").innerHTML = consoleOutput;
     playAudio(audioFileURL)
 }
 
