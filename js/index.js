@@ -67,6 +67,11 @@ function metronome() {
     if (isRunning) {
         requestId = requestAnimationFrame(metronome);
     }
+
+    // 再生が停止された場合に再開する
+    if (audioContext.state === 'suspended') {
+        audioContext.resume();
+    }
 }
 
 //メトロノームをスタートさせる関数
