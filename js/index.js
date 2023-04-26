@@ -23,30 +23,17 @@ function playAudio(audioFileURL) {
             // AudioBufferSourceNodeを作成する
             const source = audioContext.createBufferSource();
             source.buffer = audioBuffer;
-
             // 再生する
             source.connect(audioContext.destination);
             source.start(0);
-        })
-        .then(decodedData => {
-            audioSource = audioContext.createBufferSource();
-            audioSource.buffer = decodedData;
-            audioSource.loop = true;
-            audioSource.connect(audioContext.destination);
-            audioSource.start(0);
+            osc.stop(time + 0.03);
         })
         .catch(error => console.error(error));
 
-    // 再生が停止された場合に再開する
-    document.addEventListener('touchstart', () => {
-        if (audioContext.state === 'suspended') {
-            audioContext.resume();
-        }
-    });
 }
 // -------------------------------------------------
 
-let bpm = 150;
+let bpm = 120;
 let interval = (60 / bpm) * 1000;
 let nextTickTime = 0;
 let isRunning = false; // メトロノームの状態を追跡する変数を追加
@@ -112,3 +99,37 @@ function toggleFunction() {
         console.log('Started!');
     }
 }
+
+
+
+
+
+
+const canvas = document.getElementById("myCanvas");
+const ctx = canvas.getContext("2d");
+
+const x = 100; // 音符の中心のX座標
+const y = 100; // 音符の中心のY座標
+const radius = 15; // 音符の半径
+const stemLength = 60; // 符尾の長さ
+const stemThickness = 4; // 符尾の太さ
+
+// 音符の描画
+ctx.beginPath();
+ctx.arc(x, y, radius, 0, 2 * Math.PI);
+ctx.stroke();
+ctx.fillStyle = "black";
+ctx.fill();
+
+// 符幹の描画
+ctx.beginPath();
+ctx.moveTo(x + radius, y);
+ctx.lineTo(x + radius, y - stemLength);
+ctx.lineWidth = stemThickness;
+ctx.stroke();
+
+// 符尾の描画
+ctx.beginPath();
+ctx.moveTo(x + radius, y - stemLength);
+ctx.lineTo(x + radius + stemThickness, y - stemLength - (stemLength / 2));
+ctx.stroke();
